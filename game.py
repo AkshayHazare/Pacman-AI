@@ -517,6 +517,7 @@ class Game:
     currentIterations=1000
     maxIterations=1000
     timeLimit=30
+    totalFoodAndCapsules=0
     movementHistory=[]
     notLossButTime = False
     fileName=""
@@ -576,6 +577,7 @@ class Game:
         """
         self.display.initialize(self.state.data)
         self.numMoves = 0
+        Game.totalFoodAndCapsules = self.state.getNumFood() + len(self.state.getCapsules());
 
         ###self.display.initialize(self.state.makeObservation(1).data)
         # inform learning agents of the game start

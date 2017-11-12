@@ -119,7 +119,18 @@ class GameState:
         if Directions.STOP in actions: actions.remove(Directions.STOP)
         return actions
 
+    def getAllPossibleActions( self ):
+        return [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST];
+
+    def checkLegalAction( self, action ):
+        legal = self.getLegalActions(0);
+        if action in legal:
+            return 1;
+        return 0;
+
     def generatePacmanSuccessor( self, action ):
+        if not self.checkLegalAction(action):
+            action = Directions.STOP;
         Game.currentIterations -= 1
         if Game.currentIterations <= 0:
             return None
@@ -344,7 +355,7 @@ class PacmanRules:
         """
         legal = PacmanRules.getLegalActions( state )
         if action not in legal:
-            raise Exception("Illegal action " + str(action))
+            action = Directions.STOP;
 
         pacmanState = state.data.agentStates[0]
 
